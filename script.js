@@ -142,19 +142,39 @@ function shuffleSeats() {
     return;
   }
 
-  // Clamp values to reasonable limits
-  rows = Math.min(rows, 12);
-  rowsInput.value = rows;
+  // Clamp values to reasonable limits with error feedback
+  let hasLimitError = false;
+
+  if (rows > 12) {
+    rows = 12;
+    rowsInput.value = rows;
+    shakeInput(rowsInput);
+    showInputError(rowsInput, 'Max 12 rows allowed!');
+    hasLimitError = true;
+  }
 
   // Auto-correct columns to nearest multiple of 3, then clamp to 15
   if (cols % 3 !== 0) {
     cols = Math.ceil(cols / 3) * 3;
   }
-  cols = Math.min(cols, 15);
+  if (cols > 15) {
+    cols = 15;
+    shakeInput(colsInput);
+    showInputError(colsInput, 'Max 15 columns allowed!');
+    hasLimitError = true;
+  }
   colsInput.value = cols;
 
-  total = Math.min(total, rows * cols);
-  totalInput.value = total;
+  const maxStudents = rows * cols;
+  if (total > maxStudents) {
+    total = maxStudents;
+    totalInput.value = total;
+    shakeInput(totalInput);
+    showInputError(totalInput, 'Max ' + maxStudents + ' students for this layout!');
+    hasLimitError = true;
+  }
+
+  if (hasLimitError) return;
 
   if (rows * cols < total) {
     alert('Not enough seats! Rows x Columns must be >= Students.');
@@ -235,6 +255,25 @@ function shakeInput(el) {
     el.style.borderColor = '';
     el.style.animation = '';
   }, 800);
+}
+
+/* ========== INPUT ERROR MESSAGE ========== */
+function showInputError(inputEl, message) {
+  // Remove any existing error on this input
+  const parent = inputEl.parentElement;
+  const existing = parent.querySelector('.input-error-msg');
+  if (existing) existing.remove();
+
+  const msg = document.createElement('span');
+  msg.className = 'input-error-msg';
+  msg.textContent = message;
+  parent.appendChild(msg);
+
+  // Auto-remove after 3 seconds
+  setTimeout(() => {
+    msg.style.opacity = '0';
+    setTimeout(() => msg.remove(), 300);
+  }, 3000);
 }
 
 // Add shake keyframes dynamically

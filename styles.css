@@ -299,6 +299,17 @@ body {
   font-style: italic;
 }
 
+.input-error-msg {
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: #d32f2f;
+  margin-top: 4px;
+  transform: rotate(-0.5deg);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
 .shuffle-btn {
   width: 100%;
   padding: 14px;
