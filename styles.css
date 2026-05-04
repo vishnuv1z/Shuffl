@@ -45,8 +45,8 @@ body {
   position: relative;
 }
 
-/* ========== DOODLE OVERLAY ========== */
-.doodle-overlay {
+/* ========== DOODLE IMAGE LAYER ========== */
+.doodle-layer {
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -54,17 +54,13 @@ body {
   overflow: hidden;
 }
 
-.doodle-overlay span {
+.doodle-layer img {
   position: absolute;
-  opacity: 0.06;
-  font-size: 2rem;
+  pointer-events: none;
   user-select: none;
-  animation: doodleFloat 20s ease-in-out infinite;
-}
-
-@keyframes doodleFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(5deg); }
+  object-fit: contain;
+  border-radius: 6px;
+  filter: grayscale(20%);
 }
 
 /* ========== CHALKBOARD HEADER ========== */
@@ -125,10 +121,19 @@ body {
   text-shadow: 2px 2px 0 rgba(0,0,0,0.06);
   line-height: 1.2;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.landing-title .emoji {
+/* Title bag icon (replaces emoji) */
+.title-bag-icon {
   display: inline-block;
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.2));
   animation: swing 2s ease-in-out infinite;
   transform-origin: top center;
 }
@@ -200,29 +205,6 @@ body {
 
 @keyframes rippleAnim {
   to { transform: scale(4); opacity: 0; }
-}
-
-/* Landing doodle items */
-.landing-doodles {
-  display: flex;
-  gap: 30px;
-  font-size: 2.5rem;
-  opacity: 0.3;
-  margin-top: 10px;
-}
-
-.landing-doodles span {
-  animation: doodleBob 3s ease-in-out infinite;
-}
-
-.landing-doodles span:nth-child(2) { animation-delay: 0.5s; }
-.landing-doodles span:nth-child(3) { animation-delay: 1s; }
-.landing-doodles span:nth-child(4) { animation-delay: 1.5s; }
-.landing-doodles span:nth-child(5) { animation-delay: 2s; }
-
-@keyframes doodleBob {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-8px) rotate(5deg); }
 }
 
 /* ========== MAIN APP PAGE ========== */
@@ -504,10 +486,12 @@ body {
   color: var(--pencil-grey);
 }
 
-.empty-state .icon {
-  font-size: 4rem;
+.empty-state .empty-icon {
+  width: 80px;
+  height: auto;
   margin-bottom: 16px;
-  opacity: 0.4;
+  opacity: 0.35;
+  filter: grayscale(30%);
 }
 
 .empty-state p {
@@ -545,6 +529,10 @@ body {
   .seat-grid {
     gap: 8px;
     padding: 10px;
+  }
+
+  .title-bag-icon {
+    width: 45px;
   }
 }
 

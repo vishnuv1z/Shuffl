@@ -4,37 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A playful classroom seat shuffler with a nostalgic school notebook aesthetic. Randomize seat assignments instantly!">
-  <title>Seat Shuffler 🎒 — Class Roll Number Randomizer</title>
+  <title>Seat Shuffler - Class Roll Number Randomizer</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Doodle Background Overlay -->
-  <div id="doodle-overlay" class="doodle-overlay"></div>
+  <!-- Doodle Background Layer (images injected by JS) -->
+  <div id="doodle-layer" class="doodle-layer"></div>
 
   <!-- Chalkboard Header Strip -->
   <header class="chalkboard-header">
-    ✦ &ensp; C L A S S R O O M &ensp; S E A T &ensp; S H U F F L E R &ensp; ✦
+    C L A S S R O O M &ensp; S E A T &ensp; S H U F F L E R
   </header>
 
   <!-- ==================== PAGE 1: LANDING ==================== -->
   <main id="landing-page" class="page active">
     <h1 class="landing-title">
-      Seat Shuffler <span class="emoji">🎒</span>
+      Seat Shuffler
+      <img src="./assets/bag-picture.jpg" alt="School bag" class="title-bag-icon">
     </h1>
     <p class="landing-subtitle">
-      Randomly shuffle roll numbers across seats — fair, fast, and fun! ✨
+      Randomly shuffle roll numbers across seats — fair, fast, and fun!
     </p>
     <button id="start-btn" class="landing-btn" onclick="goToApp()">
-      ✏️ Shuffle Seats
+      Shuffle Seats
     </button>
-    <div class="landing-doodles">
-      <span>📚</span>
-      <span>✏️</span>
-      <span>📐</span>
-      <span>⭐</span>
-      <span>🎵</span>
-    </div>
   </main>
 
   <!-- ==================== PAGE 2: MAIN APP ==================== -->
@@ -43,38 +37,38 @@
     <!-- Left Panel — Clipboard -->
     <aside class="left-panel">
       <div class="clipboard">
-        <h2 class="clipboard-title">📋 Settings</h2>
+        <h2 class="clipboard-title">Settings</h2>
 
         <div class="input-group">
-          <label for="total-students">✏️ Number of Students</label>
+          <label for="total-students">Number of Students</label>
           <input type="number" id="total-students" placeholder="e.g. 30" min="1" max="200">
         </div>
 
         <div class="input-group">
-          <label for="num-rows">📏 Number of Rows</label>
+          <label for="num-rows">Number of Rows</label>
           <input type="number" id="num-rows" placeholder="e.g. 5" min="1" max="20">
         </div>
 
         <div class="input-group">
-          <label for="num-cols">📐 Number of Columns</label>
+          <label for="num-cols">Number of Columns</label>
           <input type="number" id="num-cols" placeholder="e.g. 6" min="1" max="20">
         </div>
 
         <hr class="clipboard-divider">
 
         <button class="shuffle-btn" onclick="shuffleSeats()">
-          🎲 Shuffle!
+          Shuffle!
         </button>
 
         <button class="back-btn" onclick="goToHome()">
-          ← Back to Home
+          &larr; Back to Home
         </button>
       </div>
     </aside>
 
     <!-- Center Panel — Seat Grid -->
     <div class="center-panel">
-      <h2 class="grid-title">🪑 Classroom Layout</h2>
+      <h2 class="grid-title">Classroom Layout</h2>
       <div id="seat-grid" class="seat-grid"></div>
     </div>
 
