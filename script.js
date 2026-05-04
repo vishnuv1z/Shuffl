@@ -130,9 +130,9 @@ function shuffleSeats() {
   const rowsInput = document.getElementById('num-rows');
   const colsInput = document.getElementById('num-cols');
 
-  const total = parseInt(totalInput.value);
-  const rows = parseInt(rowsInput.value);
-  const cols = parseInt(colsInput.value);
+  let total = parseInt(totalInput.value);
+  let rows = parseInt(rowsInput.value);
+  let cols = parseInt(colsInput.value);
 
   // Validation
   if (!total || !rows || !cols || total < 1 || rows < 1 || cols < 1) {
@@ -141,6 +141,20 @@ function shuffleSeats() {
     shakeInput(colsInput);
     return;
   }
+
+  // Clamp values to reasonable limits
+  rows = Math.min(rows, 12);
+  rowsInput.value = rows;
+
+  // Auto-correct columns to nearest multiple of 3, then clamp to 15
+  if (cols % 3 !== 0) {
+    cols = Math.ceil(cols / 3) * 3;
+  }
+  cols = Math.min(cols, 15);
+  colsInput.value = cols;
+
+  total = Math.min(total, rows * cols);
+  totalInput.value = total;
 
   if (rows * cols < total) {
     alert('Not enough seats! Rows x Columns must be >= Students.');
@@ -152,41 +166,62 @@ function shuffleSeats() {
   for (let i = 1; i <= total; i++) rolls.push(i);
   const shuffled = fisherYatesShuffle(rolls);
 
-  // Build the grid
+  // Build grouped grid columns: groups of 3 with extra gap between groups
+  const numGroups = cols / 3;
+  const colTemplate = Array.from({ length: numGroups }, () => 'repeat(3, 100px)').join(' 30px ');
+
   const grid = document.getElementById('seat-grid');
   grid.innerHTML = '';
-  grid.style.gridTemplateColumns = `repeat(${cols}, 100px)`;
+  grid.style.gridTemplateColumns = colTemplate;
 
   let index = 0;
   const totalCells = rows * cols;
 
-  for (let i = 0; i < totalCells; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'seat-cell';
-    // Random slight rotation for realism
-    const rotation = (Math.random() * 4 - 2).toFixed(1);
-    cell.style.transform = `rotate(${rotation}deg)`;
-    cell.style.animationDelay = `${i * 0.06}s`;
+  for (let row = 0; row < rows; row++) {
+    for (let g = 0; g < numGroups; g++) {
+      // Render 3 seats for this group
+      for (let s = 0; s < 3; s++) {
+        const cellIdx = row * cols + g * 3 + s;
+        const cell = document.createElement('div');
+        cell.className = 'seat-cell';
+        const rotation = (Math.random() * 4 - 2).toFixed(1);
+        cell.style.transform = `rotate(${rotation}deg)`;
+        cell.style.animationDelay = `${cellIdx * 0.06}s`;
 
-    const img = document.createElement('img');
-    img.src = './assets/seat-top-view.png';
-    img.alt = 'Seat';
-    img.draggable = false;
+        const img = document.createElement('img');
+        img.src = './assets/seat-top-view.png';
+        img.alt = 'Seat';
+        img.draggable = false;
 
-    const rollSpan = document.createElement('span');
-    rollSpan.className = 'roll-number';
+        const rollSpan = document.createElement('span');
+        rollSpan.className = 'roll-number';
 
-    if (index < total) {
-      rollSpan.textContent = shuffled[index];
-      index++;
-    } else {
-      rollSpan.textContent = '\u2014'; // em-dash
-      cell.classList.add('empty');
+        if (index < total) {
+          rollSpan.textContent = shuffled[index];
+          index++;
+        } else {
+          rollSpan.textContent = '\u2014';
+          cell.classList.add('empty');
+        }
+
+        cell.appendChild(img);
+        cell.appendChild(rollSpan);
+        grid.appendChild(cell);
+      }
+
+      // Add a spacer column between groups (not after the last group)
+      if (g < numGroups - 1) {
+        const spacer = document.createElement('div');
+        spacer.style.gridColumn = 'span 1';
+        grid.appendChild(spacer);
+      }
     }
+  }
 
-    cell.appendChild(img);
-    cell.appendChild(rollSpan);
-    grid.appendChild(cell);
+  // Change button text after first shuffle
+  const shuffleBtn = document.querySelector('.shuffle-btn');
+  if (shuffleBtn) {
+    shuffleBtn.textContent = 'Shuffle Again';
   }
 }
 
