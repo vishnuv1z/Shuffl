@@ -120,16 +120,16 @@ body {
   object-fit: contain;
   border-radius: 8px;
   filter: drop-shadow(2px 3px 5px rgba(0,0,0,0.18));
-  animation: swing 2s ease-in-out infinite;
-  transform-origin: top center;
+  animation: bag-pendulum 2.2s ease-in-out infinite;
+  transform-origin: 50% 0;
+  transform-box: fill-box;
   will-change: transform;
   margin-top: 8px;
 }
 
-@keyframes swing {
-  0%, 100% { transform: rotate(0deg) translateZ(0); }
-  25% { transform: rotate(10deg) translateZ(0); }
-  75% { transform: rotate(-10deg) translateZ(0); }
+@keyframes bag-pendulum {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
 }
 
 .landing-subtitle {
