@@ -1,6 +1,6 @@
 # 🎒 Shuffl - Random Seat Shuffler
 
-A simple web app to randomly assign classroom seats based on roll numbers.
+A simple web app to randomly assign classroom seats based on roll numbers. You can view the Live demo here: https://vishnuv1z.github.io/Shuffl/
 
 ## ✨ Features
 - Random seat shuffling  
