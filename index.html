@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shuffl - Shuffle Seats</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #0f172a;
+      color: white;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .inputs {
+      margin: 20px;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 120px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      background: #22c55e;
+      color: white;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .seat {
+      width: 60px;
+      height: 60px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Class Seat Shuffler</h1>
+
+  <div class="inputs">
+    <input type="number" id="total" placeholder="Total Students">
+    <input type="number" id="rows" placeholder="Rows">
+    <input type="number" id="cols" placeholder="Columns">
+    <br>
+    <button onclick="shuffleSeats()">Shuffle</button>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <script>
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function shuffleSeats() {
+      const total = parseInt(document.getElementById("total").value);
+      const rows = parseInt(document.getElementById("rows").value);
+      const cols = parseInt(document.getElementById("cols").value);
+      const grid = document.getElementById("grid");
+
+      if (!total || !rows || !cols) {
+        alert("Enter all values");
+        return;
+      }
+
+      if (rows * cols < total) {
+        alert("Not enough seats!");
+        return;
+      }
+
+      // Generate roll numbers
+      let rolls = [];
+      for (let i = 1; i <= total; i++) {
+        rolls.push(i);
+      }
+
+      // Shuffle
+      shuffleArray(rolls);
+
+      // Clear grid
+      grid.innerHTML = "";
+
+      // Set grid layout
+      grid.style.gridTemplateColumns = `repeat(${cols}, 70px)`;
+
+      let index = 0;
+
+      for (let i = 0; i < rows * cols; i++) {
+        const div = document.createElement("div");
+        div.className = "seat";
+
+        if (index < total) {
+          div.textContent = rolls[index++];
+        } else {
+          div.textContent = "-";
+        }
+
+        grid.appendChild(div);
+      }
+    }
+  </script>
+
+</body>
+</html>
