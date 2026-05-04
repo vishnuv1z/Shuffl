@@ -2,129 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shuffl - Shuffle Seats</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #0f172a;
-      color: white;
-    }
-
-    h1 {
-      margin-top: 20px;
-    }
-
-    .inputs {
-      margin: 20px;
-    }
-
-    input {
-      padding: 10px;
-      margin: 5px;
-      width: 120px;
-      border-radius: 6px;
-      border: none;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 6px;
-      background: #22c55e;
-      color: white;
-      cursor: pointer;
-    }
-
-    .grid {
-      display: grid;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .seat {
-      width: 60px;
-      height: 60px;
-      background: #1e293b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A playful classroom seat shuffler with a nostalgic school notebook aesthetic. Randomize seat assignments instantly!">
+  <title>Seat Shuffler 🎒 — Class Roll Number Randomizer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <h1>Class Seat Shuffler</h1>
+  <!-- Doodle Background Overlay -->
+  <div id="doodle-overlay" class="doodle-overlay"></div>
 
-  <div class="inputs">
-    <input type="number" id="total" placeholder="Total Students">
-    <input type="number" id="rows" placeholder="Rows">
-    <input type="number" id="cols" placeholder="Columns">
-    <br>
-    <button onclick="shuffleSeats()">Shuffle</button>
-  </div>
+  <!-- Chalkboard Header Strip -->
+  <header class="chalkboard-header">
+    ✦ &ensp; C L A S S R O O M &ensp; S E A T &ensp; S H U F F L E R &ensp; ✦
+  </header>
 
-  <div id="grid" class="grid"></div>
+  <!-- ==================== PAGE 1: LANDING ==================== -->
+  <main id="landing-page" class="page active">
+    <h1 class="landing-title">
+      Seat Shuffler <span class="emoji">🎒</span>
+    </h1>
+    <p class="landing-subtitle">
+      Randomly shuffle roll numbers across seats — fair, fast, and fun! ✨
+    </p>
+    <button id="start-btn" class="landing-btn" onclick="goToApp()">
+      ✏️ Shuffle Seats
+    </button>
+    <div class="landing-doodles">
+      <span>📚</span>
+      <span>✏️</span>
+      <span>📐</span>
+      <span>⭐</span>
+      <span>🎵</span>
+    </div>
+  </main>
 
-  <script>
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    }
+  <!-- ==================== PAGE 2: MAIN APP ==================== -->
+  <section id="app-page" class="page">
 
-    function shuffleSeats() {
-      const total = parseInt(document.getElementById("total").value);
-      const rows = parseInt(document.getElementById("rows").value);
-      const cols = parseInt(document.getElementById("cols").value);
-      const grid = document.getElementById("grid");
+    <!-- Left Panel — Clipboard -->
+    <aside class="left-panel">
+      <div class="clipboard">
+        <h2 class="clipboard-title">📋 Settings</h2>
 
-      if (!total || !rows || !cols) {
-        alert("Enter all values");
-        return;
-      }
+        <div class="input-group">
+          <label for="total-students">✏️ Number of Students</label>
+          <input type="number" id="total-students" placeholder="e.g. 30" min="1" max="200">
+        </div>
 
-      if (rows * cols < total) {
-        alert("Not enough seats!");
-        return;
-      }
+        <div class="input-group">
+          <label for="num-rows">📏 Number of Rows</label>
+          <input type="number" id="num-rows" placeholder="e.g. 5" min="1" max="20">
+        </div>
 
-      // Generate roll numbers
-      let rolls = [];
-      for (let i = 1; i <= total; i++) {
-        rolls.push(i);
-      }
+        <div class="input-group">
+          <label for="num-cols">📐 Number of Columns</label>
+          <input type="number" id="num-cols" placeholder="e.g. 6" min="1" max="20">
+        </div>
 
-      // Shuffle
-      shuffleArray(rolls);
+        <hr class="clipboard-divider">
 
-      // Clear grid
-      grid.innerHTML = "";
+        <button class="shuffle-btn" onclick="shuffleSeats()">
+          🎲 Shuffle!
+        </button>
 
-      // Set grid layout
-      grid.style.gridTemplateColumns = `repeat(${cols}, 70px)`;
+        <button class="back-btn" onclick="goToHome()">
+          ← Back to Home
+        </button>
+      </div>
+    </aside>
 
-      let index = 0;
+    <!-- Center Panel — Seat Grid -->
+    <div class="center-panel">
+      <h2 class="grid-title">🪑 Classroom Layout</h2>
+      <div id="seat-grid" class="seat-grid"></div>
+    </div>
 
-      for (let i = 0; i < rows * cols; i++) {
-        const div = document.createElement("div");
-        div.className = "seat";
+  </section>
 
-        if (index < total) {
-          div.textContent = rolls[index++];
-        } else {
-          div.textContent = "-";
-        }
-
-        grid.appendChild(div);
-      }
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
