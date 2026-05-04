@@ -10,34 +10,36 @@ const DOODLE_IMAGES = [
 ];
 
 /**
- * Pre-defined scattered positions to avoid overlapping
- * the center content area. Placed along edges, corners, and gaps.
+ * Intentional anchor-point positions across the viewport.
+ * Designed to feel like a hand-decorated notebook page —
+ * not a grid, not random, but purposefully scattered.
  * Each entry: { top%, left%, width(px), opacity, rotation(deg) }
  */
 const DOODLE_PLACEMENTS = [
-  // Top edge
-  { top: 3,  left: 5,   w: 65, op: 0.45, rot: -10 },
-  { top: 2,  left: 82,  w: 55, op: 0.50, rot: 8   },
-  { top: 6,  left: 42,  w: 50, op: 0.40, rot: -5  },
-  // Left edge
-  { top: 25, left: 1,   w: 70, op: 0.50, rot: 12  },
-  { top: 55, left: 2,   w: 60, op: 0.45, rot: -8  },
-  { top: 80, left: 3,   w: 55, op: 0.42, rot: 6   },
-  // Right edge
-  { top: 20, left: 92,  w: 60, op: 0.48, rot: -12 },
-  { top: 50, left: 90,  w: 70, op: 0.45, rot: 10  },
-  { top: 75, left: 93,  w: 55, op: 0.50, rot: -6  },
-  // Bottom edge
-  { top: 90, left: 10,  w: 65, op: 0.42, rot: 14  },
-  { top: 92, left: 50,  w: 50, op: 0.48, rot: -9  },
-  { top: 88, left: 78,  w: 60, op: 0.45, rot: 5   },
-  // Mid-scattered (away from center)
-  { top: 35, left: 8,   w: 50, op: 0.40, rot: -15 },
-  { top: 65, left: 88,  w: 55, op: 0.42, rot: 11  },
-  { top: 12, left: 70,  w: 58, op: 0.44, rot: -7  },
-  { top: 45, left: 95,  w: 52, op: 0.46, rot: 3   },
-  { top: 70, left: 5,   w: 62, op: 0.40, rot: -13 },
-  { top: 15, left: 18,  w: 48, op: 0.43, rot: 9   },
+  // --- Top row ---
+  { top: 8,   left: 6,   w: 70,  op: 0.45, rot: -7  },
+  { top: 5,   left: 38,  w: 55,  op: 0.40, rot: 4   },
+  { top: 10,  left: 72,  w: 65,  op: 0.42, rot: -3  },
+  { top: 3,   left: 90,  w: 60,  op: 0.45, rot: 9   },
+  // --- Upper-mid ---
+  { top: 22,  left: 15,  w: 50,  op: 0.40, rot: 6   },
+  { top: 28,  left: 80,  w: 75,  op: 0.42, rot: -8  },
+  // --- Middle row ---
+  { top: 42,  left: 5,   w: 80,  op: 0.48, rot: -5  },
+  { top: 48,  left: 55,  w: 55,  op: 0.40, rot: 10  },
+  { top: 45,  left: 88,  w: 65,  op: 0.45, rot: -4  },
+  // --- Lower-mid ---
+  { top: 62,  left: 12,  w: 60,  op: 0.42, rot: 7   },
+  { top: 58,  left: 75,  w: 70,  op: 0.40, rot: -9  },
+  // --- Bottom row ---
+  { top: 78,  left: 8,   w: 75,  op: 0.45, rot: -6  },
+  { top: 82,  left: 45,  w: 60,  op: 0.42, rot: 3   },
+  { top: 76,  left: 85,  w: 55,  op: 0.48, rot: -10 },
+  // --- Interior accents (light touches) ---
+  { top: 35,  left: 30,  w: 50,  op: 0.40, rot: 5   },
+  { top: 68,  left: 40,  w: 55,  op: 0.40, rot: -2  },
+  { top: 90,  left: 25,  w: 65,  op: 0.42, rot: 8   },
+  { top: 15,  left: 55,  w: 50,  op: 0.40, rot: -6  },
 ];
 
 function createDoodleLayer() {
