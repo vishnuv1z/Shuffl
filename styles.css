@@ -372,8 +372,9 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 10px;
+  overflow-x: auto;
 }
 
 .grid-title {
@@ -384,6 +385,7 @@ body {
   margin-bottom: 20px;
   transform: rotate(-1deg);
   position: relative;
+  align-self: center;
 }
 
 .grid-title::after {
@@ -404,6 +406,7 @@ body {
   gap: 14px;
   justify-content: center;
   padding: 20px;
+  margin: 0 auto;
 }
 
 /* Individual Seat */
@@ -483,6 +486,7 @@ body {
   text-align: center;
   padding: 60px 20px;
   color: var(--pencil-grey);
+  align-self: center;
 }
 
 .empty-state .empty-icon {
@@ -525,9 +529,18 @@ body {
     font-size: 1.3rem;
   }
 
+  .center-panel {
+    width: 100%;
+    overflow-x: auto;
+    align-items: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .seat-grid {
     gap: 8px;
     padding: 10px;
+    margin: 0;
+    min-width: min-content;
   }
 
   .title-bag-icon {
